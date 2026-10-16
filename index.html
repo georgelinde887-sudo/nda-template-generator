@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NDA Template Generator — Mutual & Unilateral Legal Agreements</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090d16;
+      --card: #111827;
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+      --text: #f9fafb;
+      --text-muted: #94a3b8;
+      --border: #1e293b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+    body { background: var(--bg); color: var(--text); min-height: 100vh; padding: 24px; }
+    .header { max-width: 1200px; margin: 0 auto 24px; border-bottom: 1px solid var(--border); padding-bottom: 16px; }
+    .container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 380px 1fr; gap: 24px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+    .card h2 { font-size: 16px; margin-bottom: 16px; font-weight: 700; }
+    .form-group { margin-bottom: 14px; }
+    .form-group label { display: block; font-size: 12px; color: var(--text-muted); margin-bottom: 4px; font-weight: 500; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; background: #0b0f19; border: 1px solid var(--border); border-radius: 6px; padding: 8px 12px; color: #fff; font-size: 13px; }
+    .preview-box { background: #fff; color: #0f172a; padding: 32px; border-radius: 8px; font-family: Georgia, serif; font-size: 13px; line-height: 1.6; max-height: 700px; overflow-y: auto; }
+    .btn-group { display: flex; gap: 10px; margin-bottom: 16px; }
+    .btn { background: var(--accent); color: white; border: none; padding: 10px 16px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; flex: 1; }
+    .btn:hover { background: var(--accent-hover); }
+    .btn-outline { background: #1e293b; border: 1px solid var(--border); color: #fff; }
+    .sponsor-box { max-width: 1200px; margin: 32px auto 0; padding: 16px 20px; background: rgba(37, 99, 235, 0.08); border: 1px solid rgba(37, 99, 235, 0.25); border-radius: 12px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; }
+    .sponsor-box a { color: #60a5fa; text-decoration: none; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1 style="font-size: 22px;">Non-Disclosure Agreement (NDA) Template Generator</h1>
+    <p style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">Generate customized Mutual or Unilateral confidentiality agreements for venture fundraising and M&A diligence.</p>
+  </div>
+
+  <div class="container">
+    <div class="card">
+      <h2>Agreement Configuration</h2>
+      <div class="form-group">
+        <label>Agreement Type</label>
+        <select id="nda-type">
+          <option value="mutual" selected>Mutual (Two-Way Confidentiality)</option>
+          <option value="unilateral">Unilateral (One-Way Disclosure)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Disclosing Party (Company)</label>
+        <input type="text" id="party-a" value="Acme Robotics Inc.">
+      </div>
+      <div class="form-group">
+        <label>Disclosing Party Address</label>
+        <input type="text" id="addr-a" value="548 Market St, San Francisco, CA">
+      </div>
+      <div class="form-group">
+        <label>Receiving Party (Investor / Partner)</label>
+        <input type="text" id="party-b" value="Benchmark Capital Fund X">
+      </div>
+      <div class="form-group">
+        <label>Receiving Party Address</label>
+        <input type="text" id="addr-b" value="2965 Woodside Rd, Woodside, CA">
+      </div>
+      <div class="form-group">
+        <label>Governing Jurisdiction</label>
+        <select id="jurisdiction">
+          <option value="State of Delaware" selected>State of Delaware</option>
+          <option value="State of California">State of California</option>
+          <option value="State of New York">State of New York</option>
+          <option value="England and Wales">England and Wales</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Confidentiality Term</label>
+        <select id="term-years">
+          <option value="1">1 Year</option>
+          <option value="2" selected>2 Years (Standard Venture Practice)</option>
+          <option value="3">3 Years</option>
+          <option value="5">5 Years</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Authorized Purpose</label>
+        <textarea id="purpose" rows="2">evaluating a potential Series A financing transaction and technical due diligence</textarea>
+      </div>
+      <div class="btn-group">
+        <button class="btn" id="copy-md-btn">Copy Markdown</button>
+        <button class="btn btn-outline" id="download-btn">Download .MD</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Document Live Preview</h2>
+      <div class="preview-box" id="preview-output"></div>
+    </div>
+  </div>
+
+  <div class="sponsor-box">
+    <span>Need an automated digital NDA agreement gate before viewers can access your pitch deck or data room?</span>
+    <a href="https://sendnow.live/blog/free-nda-template-document-sharing" target="_blank">Read SendNow non-disclosure agreement guide and template &rarr;</a>
+  </div>
+
+  <script src="src/nda-engine.js"></script>
+  <script>
+    const typeSelect = document.getElementById('nda-type');
+    const partyA = document.getElementById('party-a');
+    const addrA = document.getElementById('addr-a');
+    const partyB = document.getElementById('party-b');
+    const addrB = document.getElementById('addr-b');
+    const jurisdiction = document.getElementById('jurisdiction');
+    const termYears = document.getElementById('term-years');
+    const purpose = document.getElementById('purpose');
+    const preview = document.getElementById('preview-output');
+
+    function renderDoc() {
+      const engine = new NdaEngine({
+        type: typeSelect.value,
+        disclosingParty: partyA.value,
+        disclosingAddress: addrA.value,
+        receivingParty: partyB.value,
+        receivingAddress: addrB.value,
+        governingLaw: jurisdiction.value,
+        termYears: termYears.value,
+        purpose: purpose.value
+      });
+
+      preview.innerHTML = engine.generateHtml();
+    }
+
+    [typeSelect, partyA, addrA, partyB, addrB, jurisdiction, termYears, purpose].forEach(el => {
+      el.addEventListener('input', renderDoc);
+    });
+
+    document.getElementById('copy-md-btn').onclick = () => {
+      const engine = new NdaEngine({
+        type: typeSelect.value,
+        disclosingParty: partyA.value,
+        disclosingAddress: addrA.value,
+        receivingParty: partyB.value,
+        receivingAddress: addrB.value,
+        governingLaw: jurisdiction.value,
+        termYears: termYears.value,
+        purpose: purpose.value
+      });
+      navigator.clipboard.writeText(engine.generateMarkdown()).then(() => alert('Copied Markdown to clipboard!'));
+    };
+
+    document.getElementById('download-btn').onclick = () => {
+      const engine = new NdaEngine({
+        type: typeSelect.value,
+        disclosingParty: partyA.value,
+        disclosingAddress: addrA.value,
+        receivingParty: partyB.value,
+        receivingAddress: addrB.value,
+        governingLaw: jurisdiction.value,
+        termYears: termYears.value,
+        purpose: purpose.value
+      });
+      const blob = new Blob([engine.generateMarkdown()], { type: 'text/markdown' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `NDA_${partyA.value.replace(/[^a-z0-9]/gi, '_')}.md`;
+      a.click();
+    };
+
+    renderDoc();
+  </script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "name": "nda-template-generator",
+  "version": "1.0.0",
+  "description": "Interactive legal template generator for Unilateral and Mutual Non-Disclosure Agreements tailored for startup fundraising and due diligence.",
+  "main": "src/nda-engine.js",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "start": "node -e \"const http=require('http'),fs=require('fs'),path=require('path');http.createServer((req,res)=>{const f=req.url==='/'?'index.html':req.url.slice(1);const p=path.join(__dirname,f);if(fs.existsSync(p)){res.writeHead(200);fs.createReadStream(p).pipe(res);}else{res.writeHead(404);res.end('Not found');}}).listen(8088,()=>console.log('NDA generator running at http://localhost:8088'));\""
+  },
+  "keywords": [
+    "nda-template",
+    "non-disclosure-agreement",
+    "legal-templates",
+    "startup-fundraising",
+    "mutual-nda",
+    "unilateral-nda",
+    "sendnow"
+  ],
+  "author": "SendNow Open Source Team <opensource@sendnow.live>",
+  "license": "MIT"
+}

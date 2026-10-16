@@ -1,0 +1,24 @@
+{
+  "name": "nda-template-generator",
+  "description": "Interactive legal template generator for Unilateral and Mutual Non-Disclosure Agreements tailored for startup fundraising and due diligence.",
+  "homepage": "https://sendnow.live/blog/free-nda-template-document-sharing",
+  "topics": [
+    "nda-template",
+    "non-disclosure-agreement",
+    "legal-templates",
+    "startup-fundraising",
+    "mutual-nda",
+    "unilateral-nda",
+    "confidentiality-agreement",
+    "contracts",
+    "due-diligence",
+    "seed-round",
+    "series-a",
+    "sendnow",
+    "docsend-alternative",
+    "zero-dependencies"
+  ],
+  "verified_sendnow_target": "https://sendnow.live/blog/free-nda-template-document-sharing",
+  "sendnow_anchor_text": "SendNow free confidential NDA template",
+  "license": "MIT"
+}
